@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须定义，非绑定到类或是接口的方式 -->
+<mapper namespace="com.wardrobe.dao.ISuperAdminDao">
+    <!-- 管理员表映射 -->
+    <resultMap type="com.wardrobe.entity.Admin" id="adminMap">
+        <id property="id" column="id" javaType="int"/>
+        <result property="name" column="name" javaType="java.lang.String"/>
+        <result property="password" column="password" javaType="java.lang.String"/>
+        <association property="type" column="type_id" select="queryTypeById"></association>
+    </resultMap>
+    <!-- 查询所有记录条数 -->
+    <select id="totalRows" resultType="int">
+        SELECT
+			count(*)
+		FROM
+			admin
+    </select>
+    <!-- 查询所有管理员类型 -->
+	<select id="queryType" resultType="com.wardrobe.entity.AdminType">
+	    SELECT
+	    	*
+	    FROM
+	    	admin_type
+	</select>
+	<!-- 通过id查询管理员类型 -->
+	<select id="queryTypeById" parameterType="int" resultType="com.wardrobe.entity.AdminType">
+	    SELECT
+	    	*
+	    FROM
+	    	admin_type
+	    WHERE
+	    	id = #{id }
+	</select>
+	<!-- 添加管理员 -->
+	<insert id="addAdmin" parameterType="com.wardrobe.entity.Admin">
+	    INSERT INTO
+	    	admin(
+	    		name,
+	    		password,
+	    		type_id
+	    	)
+	    VALUES(
+	    	#{name },
+	    	#{password },
+	    	#{type.id }
+	    )
+	</insert>
+	<!-- 查询所有管理员  -->
+	<select id="queryAll" resultMap="adminMap">
+	    SELECT
+	    	*
+	    FROM 
+	   		admin
+	   	LIMIT #{start },#{pageSize }
+	</select>
+	<!-- 通过关键字查询 -->
+	<select id="queryByKey" parameterType="java.lang.String" resultMap="adminMap">
+	    SELECT
+	    	*
+	    FROM
+	    	admin
+	    WHERE 1=1
+	    <if test="_parameter!=null and _parameter!=''">
+	      	AND
+	      		name
+	      	LIKE
+	      		concat('%',#{key },'%')
+	    </if>
+	</select>
+	<!-- 删除管理员 -->
+	<delete id="deleteAdmin" parameterType="int">
+	    DELETE FROM
+	    	admin
+	    WHERE
+	    	id = #{id }
+	</delete>
+	<!-- 通过id查询  -->
+	<select id="queryById" parameterType="int" resultMap="adminMap">
+	    SELECT
+	    	*
+	    FROM
+	    	admin
+	    WHERE
+	    	id = #{id }
+	</select>
+	<!-- 修改管理员信息  -->
+	<update id="alterAdmin" parameterType="com.wardrobe.entity.Admin">
+	    UPDATE 
+	    	admin
+	    SET 
+	    	name = #{name },
+	    	password = #{password },
+	    	type_id = #{type.id }
+	    WHERE 
+	    	id = #{id }
+	</update>
+	<!-- 管理员登录  -->
+	<select id="adminLogin" parameterType="com.wardrobe.entity.Admin" resultMap="adminMap">
+	    SELECT
+	    	*
+	    FROM
+	    	admin
+	    WHERE
+	    	name = #{name }
+	    AND
+	    	password = #{password }
+	</select>
+	<!-- 修改管理员密码  -->
+	<update id="alterAdminPass" parameterType="com.wardrobe.entity.Admin">
+	    UPDATE 
+	    	admin
+	    SET 
+	    	password = #{password }
+	    WHERE 
+	    	id = #{id }
+	</update>
+</mapper>

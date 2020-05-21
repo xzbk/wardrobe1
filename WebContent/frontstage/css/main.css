@@ -1,0 +1,321 @@
+*{
+	padding: 0px;
+	margin: 0px;
+	font-size:14px;
+	font-family: Microsoft YaHei !important;
+}
+.list-unstyled {
+  padding-left: 0;
+  list-style: none;
+}
+.list-inline {
+  padding-left: 0;
+  margin-left: -5px;
+  list-style: none;
+}
+.list-inline > li {
+  display: inline-block;
+  padding-right: 5px;
+  padding-left: 5px;
+}
+.bar{
+	height:90px;
+}
+h2{
+	font-size:30px;
+}
+h3{
+	font-size:30px;
+	font-weight:100;
+	color:rgb(67, 67, 67);
+}
+p{
+	padding:3px;
+	text-indent: 10px;
+}
+a{
+	text-decoration: none;
+	color: white;
+}
+.bg-white{
+	background-color:white; 
+}
+.orage{
+	color: goldenrod;
+}
+.red{
+	color:red;
+}
+.white{
+	color:white;
+}
+.gray{
+	color:gray;
+}
+.lightgray{
+	color: rgb(67, 67, 67);
+}
+.left{
+	float:left;
+}
+.right{
+	float:right;
+}
+.clear{
+	clear: both;
+}
+.center{
+	margin:0 auto;
+}
+.in-center{
+	text-align:center;			
+}
+.left-li{
+	margin:5px;
+	padding: 10px;
+}
+.left-li:hover{
+	background-color: #434343;
+}
+.btn{
+	outline: none;
+	border:none;
+	width:160px;
+	height:40px;
+	border-radius:3px;
+	color:white;
+	background-color: rgba(246,178,107,1);
+}
+.nav-a{
+	font-weight: bold;
+	padding-top: 25px ;
+}
+.nav-checked{
+	background-color:#2c302a;
+}
+.wid{
+	width:1200px;
+}
+.title{
+	height:70px;
+	padding-top: 15px;
+}
+.like{ 
+	font-size:20px;  
+	color:#ccc; 
+	cursor:pointer;
+	padding: 0px;
+	margin: 0px -10px;
+}
+.like-count{
+	margin-right: 15px;
+}
+.cs{
+	color:#f00;
+}
+.suit{
+	width: 300px;
+	height: 400px;
+}
+.t-font{
+	font-weight:600;
+	font-size: 40px;
+}
+.ul-nostyle{
+	list-style:none;
+}
+.p-font{
+	font-size:12px;
+}
+.bef{
+	line-height: 200%;
+	font-size: 14px;
+	text-indent: 2px;
+}
+.sm-size{
+	font-size:12px;
+}
+.icon{
+	margin-top:250px;
+	width:70px;
+	height:58px;
+}
+.t-top{
+	padding-top:230px;
+}
+.main{
+	padding-top: 50px;
+	padding-bottom: 50px;
+}
+.header{
+	height: 75px;
+}
+.news-ul li{
+	border-bottom: 1px dashed white;
+	margin-top: 20px;
+	padding-bottom: 5px;
+}
+.no-border{
+	border: none;
+}
+.top-a{
+	font-weight:100;
+	font-size:13px ;
+	padding-top: 30px ;
+}
+.hr{
+	border:1px dashed grey;
+	margin-top:2px;
+}
+.hr-white{
+	border:1px dashed white;
+}
+.img{
+	margin: 6px;
+	height: 150px;
+}
+.s-img{
+	height:50px;
+	margin: 5px;
+	border: 1px solid red;
+}
+.border-white{
+	border: 1px solid white;
+}
+body{
+	background-image: url(../images/silder1.jpg);
+	background-attachment: fixed;
+	background-repeat: round;
+}
+#nav{
+	height:70px;
+	width:100%;
+	position: fixed;
+	z-index: 1;
+	background-image:url(../images/nav.png);
+	border-bottom:5px solid #ffff00;
+	top: 0px;
+}
+nav{
+	display: flex;
+	width:600px;
+}
+nav>a{
+	flex: 1;
+	font-weight: bold;
+	padding-top: 30px;
+	padding-bottom: 21px;
+	text-align:center;
+}
+nav>a:hover{
+	background-color:#2c302a;
+}
+header{
+	height:75px;
+	width:100%;
+	vertical-align: middle;
+	background-size: cover;
+}
+#pdt{
+	width:100%;
+}
+#pdt td{
+	height:300px;
+	width:200px;
+	padding-left:5px;
+	text-align:left;
+	vertical-align: top;
+}
+#pdt[a] td img{
+	height:200px;
+	width:200px;
+	padding-left:15px;
+	text-align:left;
+	vertical-align: top;
+}
+#brief{
+	width:900px;
+	height:300px;
+	padding:20px;
+	font-size:14px;
+}
+#news_tb{
+	padding-bottom:15px;
+}
+#news_tb img{
+	width:130px;
+	height:90px;
+}
+#news_tb td{
+	padding-top:15px;
+}
+#body{
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+#mask{
+	background-image: url(../images/masking.png);
+	background-repeat: repeat;
+	flex: 1;
+}
+footer{
+	height:70px;
+	color:white;
+	background-color:black;
+	width: 100%;
+}
+#pdt1{
+	background-image: url("../images/index1.jpg");
+	width: 240px;
+	height: 420px;
+}
+.img-width{
+	width:300px;
+	height: 250px;
+}
+#user{
+	cursor: pointer;
+	position: fixed;
+	left: 90%;
+}
+#user:hover>#combobox{
+	display: block;
+}
+#combobox{
+	border-radius: 3px;
+	background-color: white;
+	color:#212529;
+	list-style: none;
+	display: none;
+	border: 1px solid #ccc;
+}
+#combobox>a{
+	display: block;
+    /* width: 100%; */
+    padding: .25rem 1.5rem;
+    font-weight: 400;
+    color: #212529;
+    text-align: inherit;
+    background-color: transparent;
+    border: 0;
+}
+.page{
+	margin-top: 10px;
+	text-align: center;
+}
+.page>a{
+	padding: 0px 5px;
+}
+/* 
+	#mask元素高度小于400就会自动拉伸为800px
+ */
+/* @media only screen and (max-height: 1000px){
+	#mask{
+		background-image: url(../images/masking.png);
+		background-repeat: repeat;
+		height: 800px;
+	}
+} */
+
+

@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须定义，非绑定到类或是接口的方式 -->
+<mapper namespace="com.wardrobe.dao.ISuitDao">
+    <!-- 返回结果集映射 -->
+    <resultMap type="com.wardrobe.entity.Suit" id="suitMap" autoMapping="true">
+        <id property="id" column="id" javaType="int" />
+        <result property="uid" column="uid" javaType="int" />
+        <result property="name" column="name" javaType="java.lang.String" />
+        <result property="count" column="count" javaType="int" />
+        <result property="src" column="src" javaType="java.lang.String" />
+        <result property="share" column="share" javaType="int" />
+        <result property="description" column="description" javaType="java.lang.String" />
+        <association property="coat" column="coat_id" select="clothe" javaType="com.wardrobe.entity.Clothe"></association>
+        <association property="pants" column="pants_id" select="clothe" javaType="com.wardrobe.entity.Clothe"></association>
+        <association property="shoes" column="shoes_id" select="clothe" javaType="com.wardrobe.entity.Clothe"></association>
+        <association property="season" column="season_id" select="season" javaType="com.wardrobe.entity.Season"></association>
+    </resultMap>
+    <!-- 查询套装中的季节信息 -->
+    <select id="season" parameterType="int" resultType="com.wardrobe.entity.Season">
+	    SELECT
+			*
+		FROM
+			season
+		WHERE
+			id = #{id}
+	</select>
+   	 <!-- 查询套装中的单品信息 -->
+    <select id="clothe" parameterType="int" resultType="com.wardrobe.entity.Clothe">
+	    SELECT
+			clothes.id id,
+			uid,
+			type_id typeId,
+			clothes_type.name typeName,
+			clothes.name name,
+			season_id seasonId,
+			season.name seasonName,
+			src,
+			description,
+			count
+		FROM
+			clothes
+		INNER JOIN clothes_type ON clothes.type_id = clothes_type.id
+		INNER JOIN season ON clothes.season_id = season.id
+		AND clothes.id = #{id}
+	</select>
+	<!-- 填加套装 -->
+	<insert id="addSuit" parameterType="com.wardrobe.entity.Suit">
+	    INSERT INTO suit (
+			name,
+			uid,
+			coat_id,
+			pants_id,
+			shoes_id,
+			season_id,
+			src,
+			description
+		)
+		VALUES
+			(
+				#{name},
+				#{uid},
+				#{coat.id},
+				#{pants.id},
+				#{shoes.id},
+				#{season.id},
+				#{src},
+				#{description}
+		)
+	</insert>
+	<!-- 查询所有 -->
+	<select id="queryAll" resultMap="suitMap">
+	    SELECT
+			*
+		FROM
+			suit
+		WHERE
+			uid = #{uid }
+		ORDER BY
+			count DESC
+		LIMIT
+			#{start },#{pageSize }
+	</select>
+	<!-- 查询所有记录条数 -->
+    <select id="totalRows" resultType="int">
+        SELECT
+			count(*)
+		FROM
+			suit
+    </select>
+	<!-- 查询所有被分享的套装 -->
+	<select id="queryAllShare" parameterType="com.wardrobe.entity.Suit" resultMap="suitMap">
+	    SELECT
+			*
+		FROM
+			suit
+		WHERE share = 1
+		<if test="uid!=null and uid!=''">
+		AND
+			uid = #{uid }
+		</if>
+		ORDER BY
+			count DESC
+	</select>
+	<!-- 查询热度前4 -->
+	<select id="queryAllHot" resultMap="suitMap">
+	    SELECT
+			*
+		FROM
+			suit
+		ORDER BY
+			count DESC
+		LIMIT 0,4
+	</select>
+	<!-- 通过id查询套装 -->
+	<select id="queryById" parameterType="int" resultMap="suitMap">
+	    SELECT
+			*
+		FROM
+			suit
+		WHERE id = #{id }
+	</select>
+	<!-- 分享套装 -->
+	<update id="shareSuit" parameterType="com.wardrobe.entity.Suit">
+	    UPDATE suit
+		SET share = 1
+		WHERE
+			id = #{id}
+	</update>
+	<!-- 取消套装分享 -->
+	<update id="deShareSuit" parameterType="com.wardrobe.entity.Suit">
+	    UPDATE suit
+		SET share = 0,count = 0
+		WHERE
+			id = #{id}
+	</update>
+	<!-- 删除套装 -->
+	<delete id="deleteSuit" parameterType="int" >
+	    DELETE 
+	    FROM
+	    	suit
+	    WHERE id = #{id }
+	</delete>
+	<!-- 修改套装 -->
+	<update id="alterSuit" parameterType="com.wardrobe.entity.Suit">
+	    UPDATE
+	    	suit
+		SET
+			coat_id = #{coat.id },
+			pants_id = #{pants.id },
+			shoes_id = #{shoes.id },
+			uid = #{uid },
+			name = #{name },
+			src = #{src },
+			season_id = #{season.id },
+			description = #{description }
+		WHERE
+			id = #{id}
+	</update>
+</mapper>

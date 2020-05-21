@@ -1,0 +1,39 @@
+form{
+	margin-top: 50px;
+}
+.no-color{
+	background: none;
+}
+.white{
+	color:white;
+}
+.bg-blue{
+	background-color:#81b924;
+}
+.flex-display{
+	display: flex;
+}
+.flex{
+	flex:1;
+}
+.align-left{
+	text-align: left;
+}
+.group{
+	height: 30px;
+	width:700px;
+	padding-bottom: 50px;
+	border-radius: 5px;
+}
+.l-btn{
+	outline: none;
+	border:1px dashed grey;
+	height: 35px;
+	width:160px;
+}
+.hidden{
+	display: none;
+}
+#register:hover{
+	color: #81b924
+}

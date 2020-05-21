@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须定义，非绑定到类或是接口的方式 -->
+<mapper namespace="com.wardrobe.dao.IUserDao">
+    <!-- 用户登录 -->
+	<select id="login" parameterType="com.wardrobe.entity.User" resultType="com.wardrobe.entity.User">
+	    SELECT
+			*
+		FROM
+			user
+		WHERE
+			name = #{name} 
+		AND 
+			password = #{password}
+	</select>
+	<!-- 用户注册 -->
+	<insert id="register" parameterType="com.wardrobe.entity.User">
+	    INSERT INTO
+	    	user(
+	    		name,
+	    		password
+	    )
+	    VALUES(
+	    	#{name },
+	    	#{password }
+	    )
+	    
+	</insert>
+	<!-- 修改用户信息 -->
+	<update id="alterUser" parameterType="com.wardrobe.entity.User">
+	    UPDATE
+	    	user
+	    SET
+	    	password = #{password }
+	    WHERE 
+	    	id = #{id }
+	</update>
+	<!-- 通过id查找用户信息  -->
+	<select id="queryById" parameterType="int" resultType="com.wardrobe.entity.User">
+	    SELECT 
+	    	*
+	    FROM
+	   		user
+	   	WHERE
+	   		id = #{id}
+	</select>
+</mapper>

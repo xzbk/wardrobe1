@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须定义，非绑定到类或是接口的方式 -->
+<mapper namespace="com.wardrobe.dao.ISingleClotheDao">
+    <!-- 返回结果集映射 -->
+    <resultMap type="com.wardrobe.entity.Clothe" id="clohteMap">
+        <id property="id" column="id" javaType="int"/>
+        <result property="uid" column="uid" javaType="int" />
+        <result property="typeId" column="type_id" javaType="int" />
+        <result property="seasonId" column="seasonId" javaType="int" />
+        <result property="name" column="name" javaType="java.lang.String" />
+        <result property="src" column="src" javaType="java.lang.String" />
+        <result property="description" column="description" javaType="java.lang.String" />
+        <result property="count" column="count" javaType="int" />
+    </resultMap>
+    <!-- 查询所有记录条数 -->
+    <select id="totalRows" parameterType="int" resultType="int">
+        SELECT
+			count(*)
+		FROM
+			clothes
+		GROUP BY
+			type_id
+		HAVING
+			type_id = #{typeId }
+    </select>
+    <!-- 添加服装单品 -->
+	<insert id="addClothe" parameterType="com.wardrobe.entity.Clothe" >
+	    INSERT INTO clothes (
+			uid,
+			type_id,
+			name,
+			season_id,
+			src,
+			description
+		)
+		VALUES (
+			#{uid},
+			#{typeId},
+			#{name},
+			#{seasonId},
+			#{src},
+			#{description}
+		) 
+	</insert>
+	<!-- 查询所有 -->
+	<select id="queryAll" resultType="com.wardrobe.entity.Clothe">
+	    SELECT
+			clothes.id,
+			uid,
+			type_id typeId,
+			clothes_type.NAME type,
+			clothes. NAME,
+			season_id seasonId,
+			season.NAME seasonName,
+			src,
+			description,
+			count
+		FROM
+			clothes
+		LEFT JOIN clothes_type ON clothes.type_id = clothes_type.id
+		LEFT JOIN season ON clothes.season_id = season.id
+		WHERE type_id = #{typeId}
+		AND uid = #{uid}
+		ORDER BY
+			count DESC
+	</select>
+	<!-- 按照服装类型查询服装信息 -->
+	<select id="queryAllByTypeId" resultType="com.wardrobe.entity.Clothe">
+	    SELECT
+			clothes.id,
+			uid,
+			type_id typeId,
+			clothes_type.NAME type,
+			clothes. NAME,
+			season_id seasonId,
+			season.NAME seasonName,
+			src,
+			description,
+			count
+		FROM
+			clothes
+		INNER JOIN clothes_type ON clothes.type_id = clothes_type.id
+		INNER JOIN season ON clothes.season_id = season.id
+		WHERE type_id = #{typeId}
+		AND uid = #{uid }
+		LIMIT #{start},#{pageSize}
+	</select>
+	<!-- 查询所有热度 -->
+	<select id="queryAllHot" resultType="com.wardrobe.entity.Clothe">
+	    SELECT
+			clothes.id,
+			uid,
+			type_id typeId,
+			clothes_type.NAME type,
+			clothes. NAME,
+			season_id seasonId,
+			season.NAME seasonName,
+			src,
+			description,
+			count
+		FROM
+			clothes
+		LEFT JOIN clothes_type ON clothes.type_id = clothes_type.id
+		LEFT JOIN season ON clothes.season_id = season.id
+		ORDER BY
+			count DESC
+		LIMIT 0,5
+	</select>
+	<!-- 按照服装id查询服装信息 -->
+	<select id="queryById" parameterType="int" resultType="com.wardrobe.entity.Clothe">
+	    SELECT
+			clothes.id,
+			uid,
+			type_id typeId,
+			clothes_type.NAME type,
+			clothes. NAME,
+			season_id seasonId,
+			season.NAME seasonName,
+			src,
+			description,
+			count
+		FROM
+			clothes
+		INNER JOIN clothes_type ON clothes.type_id = clothes_type.id
+		INNER JOIN season ON clothes.season_id = season.id
+		AND clothes.id = #{id}
+	</select>
+	<!-- 修改单品 -->
+	<update id="alterClothe" parameterType="com.wardrobe.entity.Clothe">
+	    UPDATE
+	    	clothes
+		SET
+			type_id = #{typeId },
+			name = #{name },
+			uid = #{uid },
+			name = #{name },
+			src = #{src },
+			season_id = #{seasonId },
+			description = #{description }
+		WHERE
+			id = #{id}
+	</update>
+	<!-- 删除单品 -->
+	<delete id="deleteClothe" parameterType="com.wardrobe.entity.Clothe">
+	    DELETE
+	    FROM
+	    	clothes
+	    WHERE
+	    	id = #{id }
+	</delete>
+</mapper>
