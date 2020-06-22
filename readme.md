@@ -23,6 +23,6 @@ Bootstrap+Jquery
 唯一超级管理员:http://localhost:8080/wardrobe1/goAdminLogin  
 		账号: superadmin  
 		密码: 000000  
-用户管理员:  
+用户管理员:http://localhost:8080/wardrobe1/goAdminLogin   
 		账号: useradmin  
 		密码: 000000  
